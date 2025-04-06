@@ -224,6 +224,18 @@ const TsBtn: React.FC = () => {
         dispatch(requestToHidePanel());
     });
 
+    // close the panel when esc is pressed
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                dispatch(closePanel());
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [dispatch]);
+
     return (
         <div
             ref={translateButtonEleRef}
